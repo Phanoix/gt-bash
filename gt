@@ -9,7 +9,7 @@ gt_clone_my=0
 
 help() {
     cat << EOF
-usage: $0 clone <repo name> [OPTIONS]
+usage: $0 clone [my] <repo name> [OPTIONS]
     --help               Show this message
 EOF
 }
