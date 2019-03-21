@@ -1,0 +1,51 @@
+#!/bin/bash
+#
+# This is a helper cli tool that mostly just wraps other tools
+# 
+
+org_base_url="https://github.com/gctools-outilsgc/"
+personal_base_url="https://github.com/phanoix/"
+gt_clone_my=0
+
+help() {
+    cat << EOF
+usage: $0 clone (repo name) [OPTIONS]
+    --help               Show this message
+EOF
+}
+
+# clone a repo without having to get the full url every time
+clone() {
+    echo $gt_clone_repo
+}
+
+
+for opt in "$@"; do
+    case $opt in
+        --help)
+            help
+            exit 0
+            ;;
+        -h)
+            help && exit
+            ;;
+        --my)
+            gt_clone_my=1
+        clone)
+            if [[ $2 == "my" ]]; then
+                gt_clone_repo=$personal_base_url$3.git
+            else
+                gt_clone_repo=$org_base_url$2.git
+            fi
+            clone
+            exit 0
+            ;;
+        *)
+            echo "unknown option: $opt"
+            help
+            exit 1
+            ;;
+    esac
+done
+
+
