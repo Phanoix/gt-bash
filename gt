@@ -3,13 +3,15 @@
 # This is a helper cli tool that mostly just wraps other tools
 # 
 
-org_base_url="https://github.com/gctools-outilsgc/"
-personal_base_url="https://github.com/phanoix/"
+https_base_url="https://github.com/"
+ssh_base_url="git@github.com:"
+org="gctools-outilsgc/"
+personal="phanoix/"
 gt_clone_my=0
 
 help() {
     cat << EOF
-usage: $0 clone [my] <repo name> [OPTIONS]
+usage: $0 clone/ssh [my] <repo name> [OPTIONS]
     --help               Show this message
 EOF
 }
@@ -35,9 +37,17 @@ for opt in "$@"; do
             ;;
         clone)
             if [[ $2 == "my" ]]; then
-                gt_clone_repo=$personal_base_url$3.git
+                gt_clone_repo=$https_base_url$personal$3.git
             else
-                gt_clone_repo=$org_base_url$2.git
+                gt_clone_repo=$https_base_url$org$2.git
+            fi
+            clone && exit
+            ;;
+        ssh)
+            if [[ $2 == "my" ]]; then
+                gt_clone_repo=$ssh_base_url$personal$3.git
+            else
+                gt_clone_repo=$ssh_base_url$org$2.git
             fi
             clone && exit
             ;;
